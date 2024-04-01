@@ -4,5 +4,5 @@ app = FastAPI()
 
 
 @app.get("/healthcheck")
-async def root():
+def root():
     return {"healthcheck": "success"}
