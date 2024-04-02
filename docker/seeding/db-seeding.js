@@ -46,27 +46,44 @@ db.getCollection("blogs").insertOne({
 });
 
 db.getCollection("authors").insertOne({
-    alt: {
-        en: 'john doe looking sweet at you with a hat',
-        es: 'John Doe te mira dulcemente y tiene un sombrero puesto.',
-        de: 'john doe schaut dich süß an und hat dabei einen hut auf'
-    },
     about: {
-        en: 'hello I am John doe <br> i like to travel hello I am John doe <br> i like to travel hello I am John doe i like to travel hello I am John doe i like to travel hello I am John doe i like to travel hello I am John doe <br> i like to travel hello I am John doe <br> i like to travel hello I am John doe <br> i like to travel',
+        en: 'hello I am John doe',
         es: 'hola soy john doe, me gusta viajar',
-        de: 'hallo ich bin John doe, <br> ich reise gerne'
+        de: 'hallo ich bin John doe'
     },
-    imageUri: 'author/nice-image.jpeg',
     name: 'Pascal',
-    previewImageUri: 'author/preview/author.png',
     slogan: {
         en: 'english slogan',
         es: 'espańol slogan',
         de: 'deutscher slogan'
     },
-    previewImageAlt: {
-        en: 'john doe looking sweet at you with a hat only the face',
-        es: 'John Doe te mira dulcemente y tiene un sombrero puesto.',
-        de: 'john doe schaut dich süß an und hat dabei einen hut auf'
+    hidden: false,
+    image: {
+        url: 'author/nice-image.jpeg',
+        alt: 'image alt text',
+        relative_path: null,
+        icon_size: null,
+        sm_size: null,
+        md_size: null,
+        lg_size: null,
+        description: {
+            en: 'description of the image in English',
+            es: 'descripción de la imagen en español',
+            de: 'Beschreibung des Bildes auf Deutsch'
+        }
+    },
+    previewImage: {
+        url: 'author/preview/author.png',
+        alt: 'preview image alt text',
+        relative_path: null,
+        icon_size: null,
+        sm_size: null,
+        md_size: null,
+        lg_size: null,
+        description: {
+            en: 'description of the preview image in English',
+            es: 'descripción de la imagen de vista previa en español',
+            de: 'Beschreibung des Vorschaubildes auf Deutsch'
+        }
     }
 });
