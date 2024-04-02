@@ -1,0 +1,39 @@
+################################### Security ###################################
+
+## The security key thumbor uses to sign image URLs
+SECURITY_KEY = 'MY_SECURE_KEY'
+
+## Indicates if the /unsafe URL should be available
+## Defaults to: True
+ALLOW_UNSAFE_URL = False
+
+LOADER = 'thumbor.loaders.file_loader'
+## Where files should be fetched and stored from
+FILE_LOADER_ROOT_PATH = '/data'
+FILE_STORAGE_ROOT_PATH = '/data/storage'
+RESULT_STORAGE_FILE_STORAGE_ROOT_PATH = '/data/result-storage'
+
+# Set image caching time from default 1d to 1y
+MAX_AGE = 31536000
+
+## Enable for debug logging level
+# THUMBOR_LOG_CONFIG = {
+#                         'version': 1,
+#                         'disable_existing_loggers': False,
+#                         'root': {
+#                             'level': 'DEBUG',
+#                             'handlers': ['console'],
+#                         },
+#                         'formatters': {
+#                             'standard': {
+#                                 'format': '%(asctime)s %(name)s:%(levelname)s %(message)s',
+#                             },
+#                         },
+#                         'handlers': {
+#                             'console': {
+#                                 'class': 'logging.StreamHandler',
+#                                 'formatter': 'standard',
+#                                 'stream': 'ext://sys.stdout',
+#                             },
+#                         },
+#                     }

@@ -1,7 +1,9 @@
+from typing import Optional
+
 from pydantic import BaseModel
 
 
 class Translation(BaseModel):
-    de: str
-    en: str
-    es: str
+    de: Optional[str]
+    en: Optional[str]
+    es: Optional[str]

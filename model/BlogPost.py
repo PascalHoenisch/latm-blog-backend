@@ -1,12 +1,13 @@
 import datetime
 import array
 
+from typing import Optional
 from pydantic import BaseModel
 from model import Translation, Content, Image
 
 
 class BlogPost(BaseModel):
-    author: str
+    author: Optional[str]
     date: datetime
     tag: array
     title: Translation

@@ -1,11 +1,13 @@
+from typing import Optional
 from pydantic import BaseModel
-from model import Translation, Image
+from model.Translation import Translation
+from model.Image import Image
 
 
 class Author(BaseModel):
-    about: Translation
-    image: Image
-    name: str
-    previewImage: Image
-    slogan: Translation
-    hidden: bool
+    about: Optional[Translation]
+    image: Optional[Image]
+    name: Optional[str]
+    previewImage: Optional[Image]
+    slogan: Optional[Translation]
+    hidden: Optional[bool]

@@ -1,11 +1,13 @@
+from typing import Optional
+
 from pydantic import BaseModel
-from model import Translation
+from model.Translation import Translation
 
 
 class Image(BaseModel):
-    relative_path: str
-    icon_size: str
-    sm_size: str
-    md_size: str
-    lg_size: str
-    description: Translation
+    relative_path: Optional[str]
+    icon_size: Optional[str]
+    sm_size: Optional[str]
+    md_size: Optional[str]
+    lg_size: Optional[str]
+    description: Optional[Translation]
