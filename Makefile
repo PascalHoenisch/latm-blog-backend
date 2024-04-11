@@ -3,9 +3,9 @@ targets: prerequisites
 	virtualenv
 
 install:
-	python3 -m venv venv
-	. venv/bin/activate && \
-	pip install -r requirements.txt
+	python3 -m venv app/venv
+	. app/venv/bin/activate && \
+	pip install -r app/requirements.txt
 start:
-	. venv/bin/activate && \
-	uvicorn main:app --reload --reload-exclude 'mongo-data/'
+	. app/venv/bin/activate && \
+	cd app && uvicorn main:app --reload
