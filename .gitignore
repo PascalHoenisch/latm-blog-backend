@@ -1,3 +1,7 @@
 .idea
 venv
 .env
+mongo-data
+mongo-log
+thumbor_config
+images

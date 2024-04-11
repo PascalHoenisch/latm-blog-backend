@@ -1,17 +1,22 @@
-import datetime
 import array
 
+from _datetime import datetime
 from typing import Optional
 from pydantic import BaseModel
-from model import Translation, Content, Image
+from model.Translation import Translation
+from model.Content import Content
+from model.Image import Image
 
 
 class BlogPost(BaseModel):
     author: Optional[str]
-    date: datetime
+    date: Optional[datetime]
     tag: array
-    title: Translation
-    slug: Translation
-    description: Translation
-    content: Content
-    title_image: Image
+    title: Optional[Translation]
+    slug: Optional[Translation]
+    description: Optional[Translation]
+    content: Optional[Content]
+    title_image: Optional[Image]
+
+    class Config:
+        arbitrary_types_allowed = True

@@ -8,4 +8,4 @@ install:
 	pip install -r requirements.txt
 start:
 	. venv/bin/activate && \
-	uvicorn main:app --reload
+	uvicorn main:app --reload --reload-exclude 'mongo-data/'

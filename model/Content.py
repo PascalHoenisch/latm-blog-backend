@@ -1,9 +1,10 @@
 from pydantic import BaseModel
-from model import Translation
+from model.Translation import Translation
+from typing import Optional
 
 
 class Content(BaseModel):
-    md: Translation
-    sm_html: Translation
-    md_html: Translation
-    lg_html: Translation
+    md: Optional[Translation]
+    sm_html: Optional[Translation]
+    md_html: Optional[Translation]
+    lg_html: Optional[Translation]
