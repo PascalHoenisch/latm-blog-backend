@@ -4,10 +4,11 @@ from pydantic import BaseModel
 from model.Translation import Translation
 from model.Content import Content
 from model.Image import Image
+from model.Author import Author
 
 
 class BlogPost(BaseModel):
-    author: Optional[str]
+    author: Optional[Author]
     date: Optional[datetime]
     tag: List[str]
     title: Optional[Translation]
