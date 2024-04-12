@@ -1,7 +1,7 @@
 from http.client import HTTPException
 
 from fastapi import FastAPI
-from helper.db import authors, blogs
+from helper.db import authors, blogs, get_authors
 from model.Author import Author
 from model.BlogPost import BlogPost
 
@@ -22,17 +22,8 @@ def favicon():
 async def get_all_authors() -> list[Author]:
     try:
         # get all authors from the collection
-        authors_list = authors.find().limit(10)
-        authors_models = []
-
-        async for doc in authors_list:
-            author = Author(**doc)
-            authors_models.append(author)
-
-        # check if list is empty
-        if not authors_list:
-            raise HTTPException(status_code=404, detail="List is empty")
-        return authors_models
+        author_models = await get_authors(limit=10)
+        return author_models
     except Exception as e:
         return str(e)
 
@@ -41,12 +32,7 @@ async def get_all_authors() -> list[Author]:
 async def get_all_posts() -> list[BlogPost]:
     try:
         # get all authors from the collection
-        authors_list = authors.find().limit(10)
-        authors_models = []
-
-        async for doc in authors_list:
-            author = Author(**doc)
-            authors_models.append(author)
+        authors_models = await get_authors(limit=10)
 
         # Map authors name with their object
         authors_map = {author.name: author for author in authors_models}
@@ -69,3 +55,5 @@ async def get_all_posts() -> list[BlogPost]:
         return post_models
     except Exception as e:
         return str(e)
+
+
