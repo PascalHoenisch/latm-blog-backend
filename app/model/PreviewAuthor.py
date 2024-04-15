@@ -8,3 +8,4 @@ class PreviewAuthor(BaseModel):
     name: Optional[str]
     previewImage: Optional[Image]
     slogan: Optional[Translation]
+

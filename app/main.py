@@ -1,9 +1,12 @@
+import http
 from http.client import HTTPException
 
-from fastapi import FastAPI
-from helper.db import authors, blogs, get_authors
+from fastapi import FastAPI, Query
+from helper.db import blogs, get_authors, find_post
 from model.Author import Author
 from model.BlogPost import BlogPost
+from model.Translation import LanguageOption
+from typing import Annotated
 
 app = FastAPI()
 
@@ -18,7 +21,7 @@ def favicon():
     return
 
 
-@app.get("/authors")
+@app.get("/all/authors")
 async def get_all_authors() -> list[Author]:
     try:
         # get all authors from the collection
@@ -28,7 +31,7 @@ async def get_all_authors() -> list[Author]:
         return str(e)
 
 
-@app.get("/posts")
+@app.get("/all/posts")
 async def get_all_posts() -> list[BlogPost]:
     try:
         # get all authors from the collection
@@ -57,3 +60,21 @@ async def get_all_posts() -> list[BlogPost]:
         return str(e)
 
 
+@app.get("/post")
+async def get_specific_post(
+        lang: Annotated[LanguageOption, Query(
+            description="The language the slug will be queried after. Also determens in which language the post will "
+                        "be returned."
+        )],
+        slug: Annotated[str, Query(
+            min_length=1,
+            max_length=200,
+            title="Query String",
+            description="String of the slug the post gets queried after."
+        )]) -> BlogPost | None:
+    try:
+        post = await find_post(lang, slug)
+
+        return post
+    except Exception as e:
+        return str(e)

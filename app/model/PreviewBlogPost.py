@@ -2,7 +2,6 @@ from _datetime import datetime
 from typing import Optional, List
 from pydantic import BaseModel
 from model.Translation import Translation
-from model.Content import Content
 from model.Image import Image
 from model.PreviewAuthor import PreviewAuthor
 
@@ -15,6 +14,7 @@ class PreviewBlogPost(BaseModel):
     slug: Optional[Translation]
     description: Optional[Translation]
     title_image: Optional[Image]
+
 
     class Config:
         arbitrary_types_allowed = True
