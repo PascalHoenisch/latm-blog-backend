@@ -15,6 +15,5 @@ class PreviewBlogPost(BaseModel):
     description: Optional[Translation]
     title_image: Optional[Image]
 
-
     class Config:
         arbitrary_types_allowed = True
