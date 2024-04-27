@@ -5,7 +5,6 @@ from model.Translation import LanguageOption
 from model.BlogPost import BlogPost
 
 client = AsyncIOMotorClient(config["MONGO_URL"])
-print(config["MONGO_URL"])
 db = client[config["BLOG_DB"]]
 authors = db["authors"]
 blogs = db["blogs"]
