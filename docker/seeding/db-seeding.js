@@ -29,14 +29,28 @@ db.getCollection("blogs").insertOne({
             de: 'Willkommen auf pad.systemli.org.\n ![die Bildbeschreibung](path/to/cat.jpg) \nDieses Pad wird live synchronisiert, so dass alle, die es geöffnet haben, den selben Text sehen.\n\nBitte beachte:\n- Dieses Pad wird automatisch GELÖSCHT, wenn es nicht innerhalb der ausgewählten Ablaufzeit bearbeitet worden ist!\n- Dieses Pad ist für alle lesbar, denen die Adresse des Pads bekannt ist. Wähle sicherheitshalber einen nicht erratbaren Namen für das Pad.\n- Falls beim Laden des Pads eine Fehlermeldung erscheint, drücke STRG+F5 oder STRG+SHIFT+F5.\n- Möchtest du Text nur ablegen und nicht mehr bearbeiten, nutze https://paste.systemli.org/\n\nDetails zu diesem und unseren anderen Diensten findest du unter https://www.systemli.org/service/'
         },
         // is automatic generated from md, set to empty string to regenerate when queried
-        cached_html: {
-            en: '',
-            es: '',
-            de: ''
-        }
+        sm_html: {
+            en: null,
+            es: null,
+            de: null
+        },
+        md_html: {
+            en: null,
+            es: null,
+            de: null
+        },
+        lg_html: {
+            en: null,
+            es: null,
+            de: null
+        },
     },
     title_image: {
-        path: "path/to/cat.jpg",
+        relative_path: "path/to/cat.jpg",
+        icon_size: null,
+        sm_size: null,
+        md_size: null,
+        lg_size: null,
         description: {
             en: "a sweet brown cat looking at you",
             es: "una gata mirandote",

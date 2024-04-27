@@ -10,6 +10,6 @@ class Translation(BaseModel):
 
 
 class LanguageOption(Enum):
-    DE = 'de'
-    EN = 'en'
-    ES = 'es'
+    de = 'de'
+    en = 'en'
+    es = 'es'

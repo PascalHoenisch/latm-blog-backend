@@ -7,6 +7,7 @@ from model.Author import Author
 from model.BlogPost import BlogPost
 from model.Translation import LanguageOption
 from typing import Annotated
+from model.ProcessedPost import ProcessedPost, SizeOption
 
 app = FastAPI()
 
@@ -66,14 +67,17 @@ async def get_specific_post(
             description="The language the slug will be queried after. Also determens in which language the post will "
                         "be returned."
         )],
+        size: Annotated[SizeOption, Query(
+            description="The size the images should have."
+        )],
         slug: Annotated[str, Query(
             min_length=1,
             max_length=200,
             title="Query String",
             description="String of the slug the post gets queried after."
-        )]) -> BlogPost | None:
+        )]) -> ProcessedPost | None:
     try:
-        post = await find_post(lang, slug)
+        post = await find_post(lang, size, slug)
 
         return post
     except Exception as e:
