@@ -11,3 +11,8 @@ class Image(BaseModel):
     md_size: Optional[str]
     lg_size: Optional[str]
     description: Optional[Translation]
+
+
+class ProcessedImage(BaseModel):
+    path: str
+    description: str

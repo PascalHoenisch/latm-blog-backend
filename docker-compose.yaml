@@ -4,7 +4,7 @@ services:
       #- IMAGE_SERVER_SECURITY_KEY=MY_SECURE_KEY
 
   thumbor:
-    image: thumbororg/thumbor:7.7.3-py-3.11
+    image: thumbororg/thumbor:latest
     volumes:
       - ./images:/data:Z
       - ./thumbor_config/thumbor.conf:/etc/thumbor.conf:ro
@@ -38,7 +38,6 @@ services:
     ports:
       - 8081:8081
     environment:
-      # ME_CONFIG_MONGODB_URL: "mongodb://blogusr:blogpwd@mongo:27017/blogs"
       ME_CONFIG_MONGODB_URL: "mongodb://mongodb:mongodb@mongo:27017"
     networks:
       - app
