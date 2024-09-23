@@ -1,8 +1,6 @@
-import http
 from http.client import HTTPException
-
 from fastapi import FastAPI, Query
-from helper.db import blogs, get_authors, find_post
+from helper.db import posts, get_authors, find_post
 from model.Author import Author
 from model.BlogPost import BlogPost
 from model.Translation import LanguageOption
@@ -26,7 +24,7 @@ def favicon():
 async def get_all_authors() -> list[Author]:
     try:
         # get all authors from the collection
-        author_models = await get_authors(limit=10)
+        author_models = get_authors(limit=10)
         return author_models
     except Exception as e:
         return str(e)
@@ -36,16 +34,16 @@ async def get_all_authors() -> list[Author]:
 async def get_all_posts() -> list[BlogPost]:
     try:
         # get all authors from the collection
-        authors_models = await get_authors(limit=10)
+        authors_models = get_authors(limit=10)
 
         # Map authors name with their object
         authors_map = {author.name: author for author in authors_models}
 
         # get all posts from the collection
-        post_list = blogs.find()
+        post_list = posts.find()
         post_models = []
 
-        async for doc in post_list:
+        for doc in post_list:
             # joining the author
             doc['author'] = authors_map[doc['author']]
             # get posts
@@ -70,14 +68,14 @@ async def get_specific_post(
         size: Annotated[SizeOption, Query(
             description="The size the images should have."
         )],
-        slug: Annotated[str, Query(
+        post_id: Annotated[str, Query(
             min_length=1,
             max_length=200,
             title="Query String",
-            description="String of the slug the post gets queried after."
+            description="Post id."
         )]) -> ProcessedPost | None:
     try:
-        post = await find_post(lang, size, slug)
+        post = find_post(lang, size, post_id)
 
         return post
     except Exception as e:

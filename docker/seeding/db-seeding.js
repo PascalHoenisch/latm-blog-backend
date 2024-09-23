@@ -1,4 +1,4 @@
-db.getCollection("blogs").insertOne({
+db.getCollection("posts").insertOne({
     author: "Pascal",
     date: ISODate('2023-11-23T08:30:00.000Z'),
     tag: [
