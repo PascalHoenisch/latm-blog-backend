@@ -2,11 +2,12 @@ from http.client import HTTPException
 from pprint import pprint
 
 from fastapi import FastAPI, Query
-from helper.db import posts, get_authors, find_post, get_preview_authors
+from helper.db import posts, get_authors, find_post, get_processed_authors, get_posts
 from model.Author import Author, ProcessedAuthor
+from model.Image import ProcessedImage, Image
 from model.Translation import LanguageOption
 from typing import Annotated
-from model.BlogPost import ProcessedPost, SizeOption, BlogPost
+from model.BlogPost import ProcessedPost, SizeOption, BlogPost, ProcessedPreviewPost
 
 app = FastAPI()
 
@@ -28,7 +29,7 @@ async def get_all_authors() -> list[Author]:
         author_models = get_authors(limit=10)
         return author_models
     except Exception as e:
-        return str(e)
+        raise HTTPException()
 
 
 @app.get("/all/posts")
@@ -39,33 +40,14 @@ async def get_all_posts(
         size: Annotated[SizeOption, Query(
             description="The size the images should have."
         )],
-) -> list[ProcessedPost] | list[ProcessedAuthor]:
+) -> list[ProcessedPost]:
     try:
-        # get all authors from the collection
-        authors_models = get_preview_authors(lang=lang)
-
-        return authors_models
-        # Map authors name with their object
-        authors_map = {author.name: author for author in authors_models}
-
         # get all posts from the collection
-        post_list = posts.find()
-        post_models = []
+        post_list = get_posts(lang=lang, size=size, limit=1000)
 
-        for doc in post_list:
-            # joining the author
-            doc['author'] = authors_map[doc['author']]
-            # get posts
-            post = ProcessedPost(**doc)
-            post_models.append(post)
-
-        # check if list is empty
-        if not post_list:
-            raise HTTPException(status_code=404, detail="List is empty")
-
-        return post_models
-    except Exception as e:
-        return str(e)
+        return post_list
+    except HTTPException as http_exc:
+        raise http_exc
 
 
 @app.get("/post")
@@ -88,4 +70,4 @@ async def get_specific_post(
 
         return post
     except Exception as e:
-        return str(e)
+        raise HTTPException()

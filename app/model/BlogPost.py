@@ -25,15 +25,18 @@ class PreviewBlogPost(BaseModel):
         arbitrary_types_allowed = True
 
 
-class ProcessedPost(BaseModel):
+class ProcessedPreviewPost(BaseModel):
     author: Optional[ProcessedAuthor]
     date: Optional[datetime]
     tag: List[str]
     title: str
     slug: str
     description: str
-    content: str
     title_image: Optional[ProcessedImage]
+    
+
+class ProcessedPost(ProcessedPreviewPost):
+    content: str
 
 
 class SizeOption(Enum):
