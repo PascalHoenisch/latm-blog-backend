@@ -4,7 +4,7 @@ services:
       #- IMAGE_SERVER_SECURITY_KEY=MY_SECURE_KEY
 
   thumbor:
-    image: thumbororg/thumbor:7.7.3-py-3.11
+    image: thumbororg/thumbor:latest
     volumes:
       - ./images:/data:Z
       - ./thumbor_config/thumbor.conf:/etc/thumbor.conf:ro

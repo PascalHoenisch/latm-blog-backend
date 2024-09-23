@@ -1,10 +1,11 @@
 import pprint
+from typing import List
 
 from helper.env import config
-from model.Author import Author, ProcessedAuthor
+from model.Author import Author, ProcessedAuthor, PreviewAuthor
 from model.Translation import LanguageOption
 from model.Image import ProcessedImage
-from model.ProcessedPost import SizeOption, ProcessedPost
+from model.BlogPost import SizeOption, ProcessedPost
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
@@ -23,6 +24,24 @@ def get_authors(limit: int) -> list[Author]:
         authors_models.append(author)
 
     return authors_models
+
+
+def get_preview_authors(lang: LanguageOption) -> list[ProcessedAuthor]:
+    author_models = get_authors(10)
+    # map all authors as a processedAuthor and the slogan and image depending on the lang
+    preview_authors = [
+        ProcessedAuthor(
+            name=author.name,
+            slogan=author.slogan[lang.value],
+            image=ProcessedImage(
+                path=author.previewImage.icon_size if author.previewImage.icon_size is not None else '',
+                description=author.previewImage.description[lang.value]
+            )
+        )
+        for author in author_models
+    ]
+
+    return preview_authors
 
 
 def find_post(lang: LanguageOption, size: SizeOption, post_id: str) -> ProcessedPost | None:
