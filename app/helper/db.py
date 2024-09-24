@@ -1,6 +1,4 @@
 import pprint
-from typing import List
-
 from helper.env import config
 from model.Author import Author, ProcessedAuthor, PreviewAuthor
 from model.Translation import LanguageOption
