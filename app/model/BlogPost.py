@@ -20,6 +20,7 @@ class PreviewBlogPost(BaseModel):
     slug: Optional[Translation]
     description: Optional[Translation]
     title_image: Optional[Image]
+    id: Optional[int]
 
     class Config:
         arbitrary_types_allowed = True
@@ -33,6 +34,7 @@ class ProcessedPreviewPost(BaseModel):
     slug: str
     description: str
     title_image: Optional[ProcessedImage]
+    id: Optional[str]
     
 
 class ProcessedPost(ProcessedPreviewPost):

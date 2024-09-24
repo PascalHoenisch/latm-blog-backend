@@ -64,9 +64,15 @@ async def get_specific_post(
             max_length=200,
             title="Query String",
             description="Post id."
+        )],
+        slug: Annotated[str, Query(
+            min_length=1,
+            max_length=200,
+            title="Query String",
+            description="Post slug. If post id and slug do not match nothing is returned."
         )]) -> ProcessedPost | None:
     try:
-        post = find_post(lang, size, post_id)
+        post = find_post(lang, size, post_id, slug)
 
         return post
     except Exception as e:

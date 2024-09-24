@@ -55,6 +55,7 @@ def get_posts(lang: LanguageOption, size: SizeOption, limit: int) -> list[Proces
         author = next((a for a in processed_authors_by_lang if a.name == author_name), None)
 
         post = ProcessedPost(
+            id=str(doc['_id']),
             title=doc['title'][lang.value],
             slug=doc['slug'][lang.value],
             description=doc['description'][lang.value],
@@ -73,41 +74,36 @@ def get_posts(lang: LanguageOption, size: SizeOption, limit: int) -> list[Proces
     return posts_models
 
 
-def find_post(lang: LanguageOption, size: SizeOption, post_id: str) -> ProcessedPost | None:
-    authors_models = get_authors(10)
+def find_post(lang: LanguageOption, size: SizeOption, post_id: str, slug: str) -> ProcessedPost | None:
+    authors_models = get_processed_authors(lang=lang)
     authors_map = {author.name: author for author in authors_models}
 
     # find the post by its id
     post = posts.find_one({"_id": ObjectId(post_id)})
 
-    pprint.pprint(post)
-    return None
-    post_model = None
-
-    for doc in post:
-        pprint.pprint(doc['title'])
+    if not post:
         return None
-        # mapping the language and size values to a simplified and shortened version of a blog post
 
-        post_model = ProcessedPost(
-            title=doc['title'][lang],
-            slug=doc['slug'][lang],
-            description=doc['description'][lang],
-            content=doc['content'][size][lang],
-            tag=doc['tag'],
-            date=doc['date'],
-            title_image=ProcessedImage(
-                path=doc['title_image'][size],
-                description=doc['title_image']['description'][lang]
-            ),
-            author=ProcessedAuthor(
-                name=doc['author']['name'],
-                slogan=doc['author']['slogan'][lang],
-                image=ProcessedImage(
-                    path=doc['title_image']['icon_size'],
-                    description=doc['title_image']['description'][lang]
-                )
-            )
-        )
+    if post.get('slug', {}).get(lang.value) != slug:
+        return None
+
+    # set proper size value for the content key
+    size_value = size.name
+    pprint.pprint(str(size.name))
+
+    post_model = ProcessedPost(
+        id=str(post.get('_id')),
+        title=post.get('title', {}).get(lang.value, '') or '',
+        slug=post.get('slug', {}).get(lang.value, ''),
+        description=post.get('description', {}).get(lang.value, '') or '',
+        content=post.get('content', {}).get(str(size.name), {}).get(lang.value, '') or '',
+        tag=post.get('tag', []) or [],
+        date=post.get('date'),
+        title_image=ProcessedImage(
+            path=post.get('title_image', {}).get(size.value, ''),
+            description=post.get('title_image', {}).get('description', {}).get(lang.value, '') or ''
+        ),
+        author=authors_map[post.get('author', {})]
+    )
 
     return post_model
