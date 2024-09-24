@@ -45,4 +45,5 @@ class SizeOption(Enum):
     sm_html = 'sm'
     md_html = 'md'
     lg_html = 'lg'
+    icon_size = 'icon'
     

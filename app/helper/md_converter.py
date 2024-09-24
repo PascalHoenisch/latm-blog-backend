@@ -2,7 +2,7 @@ import markdown
 import re
 
 from model.BlogPost import SizeOption
-from image_tools import generate_signed_url
+from helper.image_tools import generate_signed_url
 
 
 def convert_to_html(content: str, size: SizeOption):
@@ -19,7 +19,6 @@ def convert_to_html(content: str, size: SizeOption):
     """
 
     def replace_image_paths(match):
-        img_md = match.group(0)
         img_path = match.group(2)
         signed_url = generate_signed_url(relative_path=img_path, size=size)
         return f'![{match.group(1)}]({signed_url})'
